@@ -1,1 +1,1 @@
-https://github.com/nestyxxxx/mesto-ad.git
+https://nestyxxxx.github.io/mesto-production/
