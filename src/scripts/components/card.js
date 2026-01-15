@@ -1,11 +1,3 @@
-export const likeCard = (likeButton) => {
-  likeButton.classList.toggle("card__like-button_is-active");
-};
-
-export const deleteCard = (cardElement) => {
-  cardElement.remove();
-};
-
 const getTemplate = () => {
   return document
     .getElementById("card-template")
@@ -15,28 +7,40 @@ const getTemplate = () => {
 
 export const createCardElement = (
   data,
-  { onPreviewPicture, onLikeIcon, onDeleteCard }
+  { onPreviewPicture, onLikeIcon, onDeleteCard, onInfoClick }
 ) => {
   const cardElement = getTemplate();
+
   const likeButton = cardElement.querySelector(".card__like-button");
   const deleteButton = cardElement.querySelector(".card__control-button_type_delete");
+  const infoButton = cardElement.querySelector(".card__control-button_type_info");
   const cardImage = cardElement.querySelector(".card__image");
+  const likeCount = cardElement.querySelector(".card__like-count");
 
   cardImage.src = data.link;
   cardImage.alt = data.name;
   cardElement.querySelector(".card__title").textContent = data.name;
 
-  if (onLikeIcon) {
-    likeButton.addEventListener("click", () => onLikeIcon(likeButton));
+  const myId = "3a710b1ba2be14917e6f951d";
+  if (data.owner && data.owner._id !== myId) {
+    deleteButton.remove();
   }
 
-  if (onDeleteCard) {
-    deleteButton.addEventListener("click", () => onDeleteCard(cardElement));
+  if (data.likes.some(like => like._id === myId)) {
+    likeButton.classList.add("card__like-button_is-active");
+  }
+  if (likeCount) {
+    likeCount.textContent = data.likes.length;
   }
 
-  if (onPreviewPicture) {
-    cardImage.addEventListener("click", () => onPreviewPicture({name: data.name, link: data.link}));
+  likeButton.addEventListener("click", () => onLikeIcon(cardElement, data));
+  if (deleteButton) {
+    deleteButton.addEventListener("click", () => onDeleteCard(cardElement, data));
   }
+  if (infoButton) {
+    infoButton.addEventListener("click", () => onInfoClick(data._id)); // ← ВОТ ЭТО И НЕ ХВАТАЛО!
+  }
+  cardImage.addEventListener("click", () => onPreviewPicture({ name: data.name, link: data.link }));
 
   return cardElement;
 };
