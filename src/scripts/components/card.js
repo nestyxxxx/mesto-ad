@@ -38,7 +38,7 @@ export const createCardElement = (
     deleteButton.addEventListener("click", () => onDeleteCard(cardElement, data));
   }
   if (infoButton) {
-    infoButton.addEventListener("click", () => onInfoClick(data._id)); // ← ВОТ ЭТО И НЕ ХВАТАЛО!
+    infoButton.addEventListener("click", () => onInfoClick(data._id));
   }
   cardImage.addEventListener("click", () => onPreviewPicture({ name: data.name, link: data.link }));
 
