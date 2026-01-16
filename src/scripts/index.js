@@ -1,5 +1,5 @@
 import { enableValidation, clearValidation } from "./components/validation.js";
-import { createCardElement } from "./components/card.js";
+import { createCardElement } from "./components/cards.js";
 import { openModalWindow, closeModalWindow, setCloseModalWindowEventListeners } from "./components/modal.js";
 import { getUserInfo, getCardList, setUserInfo, setUserAvatar, addNewCard, changeLikeCardStatus, deleteCardFromServer } from './components/api.js';
 
